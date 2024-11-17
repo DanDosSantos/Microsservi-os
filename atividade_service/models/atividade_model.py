@@ -30,3 +30,22 @@ def obter_atividade(id_atividade):
         if atividade['id_atividade'] == id_atividade:
             return atividade
     raise AtividadeNotFound
+
+def criar_atividade(dados):
+    nova_atividade = {
+        'id_atividade': len(atividades) + 1,
+        'id_disciplina': dados['id_disciplina'],
+        'enunciado': dados['enunciado'],
+        'respostas': dados.get('respostas', [])
+    }
+    atividades.append(nova_atividade)
+    return nova_atividade
+
+def atualizar_atividade(id_atividade, dados):
+    atividade = obter_atividade(id_atividade)
+    atividade.update(dados)
+    return atividade
+
+def excluir_atividade(id_atividade):
+    global atividades
+    atividades = [atividade for atividade in atividades if atividade['id_atividade'] != id_atividade]
